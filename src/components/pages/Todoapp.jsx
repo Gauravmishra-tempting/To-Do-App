@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const  Todoapp = () => {
@@ -28,15 +28,19 @@ const  Todoapp = () => {
     //   setTask((prevTask) => prevTask.filter((_, i) => i !== index));
     // }
 
-    
+
 // Date and Time 
 
-    setInterval(() => {
-      const now = new Date();
-      const formateDate = now.toLocaleDateString();
-      const formateTime = now.toLocaleTimeString();
-      setDateTime(`${formateDate} - ${formateTime}`);
-    }, 1000);
+    useEffect(() => {
+     const intervalValid = setInterval(() => {
+        const now = new Date();
+        const formateDate = now.toLocaleDateString();
+        const formateTime = now.toLocaleTimeString();
+        setDateTime(`${formateDate} - ${formateTime}`);
+      }, 1000);
+
+      return () => clearInterval(intervalValid);
+    }, []);
 
 
     // Clear all tasks
