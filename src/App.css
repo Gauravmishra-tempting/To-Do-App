@@ -36,3 +36,70 @@
     transform: rotate(360deg);
   }
 }
+
+
+input:focus, 
+.form-control:focus {
+    border-color: #BB2D3B !important; /* Keeps the default border color */
+    box-shadow: none !important; /* Removes the blue glow effect */
+    outline: none !important; /* Removes any additional focus outline */
+}
+
+.custom-border {
+  border: 1px solid #BB2D3B !important; /* Example: Red border */
+  border-radius: 5px; /* Optional: Rounded corners */
+}
+
+.custom-border:focus {
+  border-color: #BB2D3B !important; /* Keeps the red border on focus */
+  box-shadow: none !important; /* Removes the blue hover border */
+  outline: none !important; /* Removes default focus outline */
+}
+
+.backgroundcolor{
+  background: #BB2D3B;
+}
+
+/* clearbutton */
+
+.clearbutton{
+  border: none;
+  border-radius: 5px;
+  box-shadow: #000000;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 5px;
+}
+
+
+/* =======================
+        delete-btn
+========================== */
+
+.delete-btn{
+  position: absolute;
+  right: 5px;
+  background: #BB2D3B;
+  border: none;
+  border-radius: 5px;
+  color: #000000;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+
+
+/* =======================
+        edit-btn
+========================== */
+
+.edit-btn{
+  position: absolute;
+  right: 50px;
+  background: #BB2D3B;
+  border: none;
+  border-radius: 5px;
+  color: #000000;
+  font-size: 17px;
+  cursor: pointer;
+}

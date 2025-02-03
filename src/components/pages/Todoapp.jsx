@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { RiDeleteBin6Line, RiEdit2Line} from "react-icons/ri";
 
 const  Todoapp = () => {
   const [inputText, setInputText] = useState("");
@@ -24,9 +24,9 @@ const  Todoapp = () => {
 
     }
 
-    // const removeTask = (index) => {
-    //   setTask((prevTask) => prevTask.filter((_, i) => i !== index));
-    // }
+    const removeTask = (index) => {
+      setTask((prevTask) => prevTask.filter((_, i) => i !== index));
+    }
 
 
 // Date and Time 
@@ -49,6 +49,11 @@ const  Todoapp = () => {
       setTask([]);
     };
 
+    // Edit task
+   const handleEditButton = () => {
+     alert("Edit task");
+   }
+
 
   return (
    <div className="container">
@@ -60,9 +65,9 @@ const  Todoapp = () => {
         <h5>{dateTime}</h5>
       </div>
       <div className="col-md-6 offset-md-3 mt-5">
-        <form onSubmit={handleFormSubmit} className="input-form input-group">
+        <form onSubmit={handleFormSubmit} className="input-form input-group shadow">
         <input type="text" 
-        className="form-control" 
+        className="form-control custom-border" 
         placeholder="Recipient's username" 
         aria-label="Recipient's username" 
         aria-describedby="basic-addon2"
@@ -70,7 +75,7 @@ const  Todoapp = () => {
        onChange={(e) => handleChange(e.target.value)} 
         />
         <button 
-        className="input-group-text" 
+        className="input-group-text custom-border" 
         id="basic-addon2"
         onClick={handleFormSubmit}
         style={{cursor: "pointer"}}
@@ -82,20 +87,25 @@ const  Todoapp = () => {
       <div className="col-md-6 offset-md-3 mt-5">
         <ul className="list-group">
           {task.map((item, index) => (
-            <li key={index} className='list-group-item'>
+            <li key={index} 
+            className='list-group-item mb-4 custom-border shadow'>
               {item}
               <button
-              className='align-items-left'
-              // onClick={() => removeTask(index)}
+              className='delete-btn'
+              onClick={() => removeTask(index)}
               >
-                <RiDeleteBin6Line />
+               <RiDeleteBin6Line />
               </button>
+              <button
+              className='edit-btn'
+               onClick={handleEditButton}
+              ><RiEdit2Line/></button>
             </li>
           ))}
           <div className='mx-auto mt-3'>
             <button onClick={handleClear}
             type='button' 
-            className="btn btn-danger">
+            className="backgroundcolor clearbutton">
               Clear
             </button>
           </div>
