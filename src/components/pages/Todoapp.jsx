@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { RiDeleteBin6Line, RiEdit2Line} from "react-icons/ri";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 
 const  Todoapp = () => {
   const [inputText, setInputText] = useState("");
   const [task, setTask] = useState([]);
   const [dateTime, setDateTime] = useState("");
+  const [show, setShow] = useState(false);
 
 
   const handleChange = (value) => {
     setInputText(value);
   }
+
+  const handleEditChange = () => {
+    setInputText();
+  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -49,10 +57,17 @@ const  Todoapp = () => {
       setTask([]);
     };
 
+    const handleShow = () => {
+      setShow(true);
+    };
+
+    const handleClose = () => {
+      setShow(false);
+    };
+
+ 
     // Edit task
-   const handleEditButton = () => {
-     alert("Edit task");
-   }
+
 
 
   return (
@@ -98,8 +113,28 @@ const  Todoapp = () => {
               </button>
               <button
               className='edit-btn'
-               onClick={handleEditButton}
-              ><RiEdit2Line/></button>
+              onClick={handleShow}
+              ><RiEdit2Line/>
+              </button>
+              
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Form>
+                <Form.Group className="custom-border" controlId="exampleForm.ControlInput1">
+                <Form.Control type="email" placeholder="Type......" />
+                </Form.Group>
+                </Form>
+                  <Modal.Footer>
+                  <Button variant="danger" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="danger" onClick={handleClose}>
+                    Save Changes
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </li>
           ))}
           <div className='mx-auto mt-3'>
