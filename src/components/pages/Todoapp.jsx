@@ -9,15 +9,21 @@ const  Todoapp = () => {
   const [task, setTask] = useState([]);
   const [dateTime, setDateTime] = useState("");
   const [show, setShow] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
+  const [editText, setEditText] = useState("");
+
+
+  
+   useEffect(()=>{
+    const storedTask = localStorage.getItem("task");
+    if(storedTask) setTask(JSON.parse(storedTask));
+   },[]);
 
 
   const handleChange = (value) => {
     setInputText(value);
   }
 
-  const handleEditChange = () => {
-    setInputText();
-  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -26,15 +32,20 @@ const  Todoapp = () => {
       
     if (task.includes(inputText)) return;
 
-    setTask((prevTask) => [... prevTask, inputText]);
+    const updatedTask = [...task, inputText];
+    setTask(updatedTask);
+    localStorage.setItem("task", JSON.stringify(updatedTask));
 
     setInputText("");
 
     }
 
     const removeTask = (index) => {
-      setTask((prevTask) => prevTask.filter((_, i) => i !== index));
+      const updatedTask = task.filter((_, i) => i !== index);
+      setTask(updatedTask);
+      localStorage.setItem("task", JSON.stringify(updatedTask));
     }
+
 
 
 // Date and Time 
@@ -55,18 +66,32 @@ const  Todoapp = () => {
     const handleClear = () => {
       setInputText("");
       setTask([]);
+      localStorage.removeItem("task");
     };
 
-    const handleShow = () => {
+    const handleShow = (index) => {
+      setEditIndex(index);
+      setEditText(task[index]);
       setShow(true);
     };
 
     const handleClose = () => {
       setShow(false);
+      setEditIndex(null);
+      setEditText("");
     };
 
- 
-    // Edit task
+    const handleSave = () => {
+      if(editIndex !== null) {
+        const updatedTask = [...task];
+        updatedTask[editIndex] = editText;
+        setTask(updatedTask);
+        localStorage.setItem("task", JSON.stringify(updatedTask));
+      }
+      handleClose();
+    };
+
+
 
 
 
@@ -87,7 +112,7 @@ const  Todoapp = () => {
         aria-label="Recipient's username" 
         aria-describedby="basic-addon2"
         value= {inputText}
-       onChange={(e) => handleChange(e.target.value)} 
+        onChange={(e) => handleChange(e.target.value)} 
         />
         <button 
         className="input-group-text custom-border" 
@@ -105,6 +130,30 @@ const  Todoapp = () => {
             <li key={index} 
             className='list-group-item mb-4 custom-border shadow'>
               {item}
+            
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Form>
+                <Form.Group className="custom-border" controlId="exampleForm.ControlInput1">
+                <Form.Control 
+                type="text"
+                value={editText} 
+                onChange={(e) => setEditText(e.target.value)}
+                placeholder="Type......" />
+                </Form.Group>
+                </Form>
+                  <Modal.Footer>
+                  <Button variant="danger" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="danger" onClick={handleSave}>
+                    Save
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
               <button
               className='delete-btn'
               onClick={() => removeTask(index)}
@@ -113,28 +162,9 @@ const  Todoapp = () => {
               </button>
               <button
               className='edit-btn'
-              onClick={handleShow}
+              onClick={() => handleShow(index)}
               ><RiEdit2Line/>
               </button>
-              
-              <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Form>
-                <Form.Group className="custom-border" controlId="exampleForm.ControlInput1">
-                <Form.Control type="email" placeholder="Type......" />
-                </Form.Group>
-                </Form>
-                  <Modal.Footer>
-                  <Button variant="danger" onClick={handleClose}>
-                    Close
-                  </Button>
-                  <Button variant="danger" onClick={handleClose}>
-                    Save Changes
-                  </Button>
-                </Modal.Footer>
-              </Modal>
             </li>
           ))}
           <div className='mx-auto mt-3'>

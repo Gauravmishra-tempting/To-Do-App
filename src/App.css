@@ -103,3 +103,26 @@ input:focus,
   font-size: 17px;
   cursor: pointer;
 }
+
+
+
+
+
+
+.form-control {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} 
+
+
+.list-group-item {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+}
