@@ -1,7 +1,7 @@
 import './App.css';
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Loader from './components/loader/Loader';
+import Loader from './components/loader/Loader.jsx';
 
 const Todoapp = lazy(() => import('./components/pages/Todoapp'));
 
