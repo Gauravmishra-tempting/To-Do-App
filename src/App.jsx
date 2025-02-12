@@ -5,6 +5,7 @@ import Loader from './components/loader/Loader.jsx';
 
 const Todoapp = lazy(() => import('./components/pages/Todoapp'));
 
+
 function App() {
   return (
     <Suspense fallback={<Loader />}>
