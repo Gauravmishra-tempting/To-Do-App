@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Loader from './components/loader/Loader';
 
+
 const Todoapp = lazy(() => import('./components/pages/Todoapp'));
 
 
@@ -12,7 +13,6 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Todoapp />} />
-        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
       </BrowserRouter>
     </Suspense>
